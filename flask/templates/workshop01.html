@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Week08 - Workshop01 Image Processing (Shape detection)</title>
+	<style>
+		#option {
+			margin: 10px 0;
+			display: flex;
+			flex-direction: row;
+		}
+		#option div {
+			margin: 5px;
+			padding: 5px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+		.hide {
+			display: none;
+		}
+		.show {
+			display: block;
+		}
+		canvas, video {
+			border: 1px solid black;
+			position: relative;
+		}
+	</style>
+	<script type="importmap">
+	{
+		"imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.177.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.177.0/examples/jsm/",
+			"cg-module": "{{ url_for('static', filename='cg-module.js') }}"
+		}
+	}
+	</script>
+	<script type="module" src="{{ url_for('static', filename='workshop01.js') }}"></script>
+</head>
+<body>
+	<input type="file" id="imageFile" accept="image/*,video/*" placeholder="Select an image file" /><br>
+	<img id="imageSrc" class="hide" alt="">
+	
+	<img id="imageDes" class="hide" alt="">
+	<div id="before">
+		<p>ภาพต้นฉบับ</p>
+		<video id="videoSrc" class="hide" controls loop></video>
+		<canvas id="imageBefore"></canvas>
+	</div>
+	
+	<div id="option">
+		<div>
+			<h3>Shape detection</h3>
+			<label for="p_brightness">ความสว่าง</label>
+			<input type="range" id="p_brightness" min="0" max="255" value="100"><br>
+			<label for="p_blur">เบลอ</label>
+			<input type="range" id="p_blur" min="3" max="9" value="5" step="2"><br>
+			<label for="p_area">พื้นที่วงกลม</label>
+			<input type="number" id="p_area" value="20" placeholder="พื้นที่วงกลม"><br>
+			<button type="button" id="send_shape">ส่งไป backend</button>
+		</div>
+		<div>
+			<h3>Hough circle detection</h3>
+			<label for="h_blur">เบลอ</label>
+			<input type="range" id="h_blur" min="3" max="9" value="5" step="2"><br>
+			<label for="h_dist">ระยะระหว่างวงกลม</label>
+			<input type="number" id="h_dist" value="20" placeholder="ระยะระหว่างวงกลม"><br>
+			<label for="h_param1">hough param1</label>
+			<input type="number" id="h_param1" value="100" placeholder="hough param1"><br>
+			<label for="h_param2">hough param2</label>
+			<input type="number" id="h_param2" value="50" placeholder="hough param2"><br>
+			<label for="h_min_r">min radius</label>
+			<input type="number" id="h_min_r" value="15" placeholder="min radius"><br>
+			<label for="h_max_r">max radius</label>
+			<input type="number" id="h_max_r" value="80" placeholder="max radius"><br>
+			<button type="button" id="send_hough">ส่งไป backend</button>
+		</div>
+	</div>
+
+	<div id="after">
+		<p>ภาพที่ได้กลับมาจาก Backend</p>
+		<canvas id="imageAfter"></canvas>
+		<p>ผลลัพธ์การตรวจจับรูปทรง</p>
+		<div id="result">
+
+		</div>
+	</div>
+</body>
+</html>

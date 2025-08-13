@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Week08 - Workshop02 HAAR Cascade Object Detection</title>
+	<style>
+		#option {
+			margin: 10px 0;
+			display: flex;
+			flex-direction: row;
+		}
+		#option div {
+			margin: 5px;
+			padding: 5px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+		.hide {
+			display: none;
+		}
+		.show {
+			display: block;
+		}
+		canvas, video {
+			border: 1px solid black;
+			position: relative;
+		}
+	</style>
+	<script type="importmap">
+	{
+		"imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.177.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.177.0/examples/jsm/",
+			"cg-module": "{{ url_for('static', filename='cg-module.js') }}"
+		}
+	}
+	</script>
+	<script type="module" src="{{ url_for('static', filename='workshop02.js') }}"></script>
+</head>
+<body>
+	<input type="file" id="imageFile" accept="image/*,video/*" placeholder="Select an image file" /><br>
+	<img id="imageSrc" class="hide" alt="">
+	
+	<img id="imageDes" class="hide" alt="">
+	<div id="before">
+		<p>ภาพต้นฉบับ</p>
+		<video id="videoSrc" class="hide" controls loop></video>
+		<canvas id="imageBefore"></canvas>
+	</div>
+	
+	<div id="option">
+		<div>
+			<h3>HAAR object detection</h3>
+			<button type="button" id="send_haar">ส่งไป backend</button>
+		</div>
+	</div>
+
+	<div id="after">
+		<p>ภาพที่ได้กลับมาจาก Backend</p>
+		<canvas id="imageAfter"></canvas>
+		<p>ผลลัพธ์การตรวจจับรูปทรง</p>
+		<div id="result">
+
+		</div>
+	</div>
+</body>
+</html>
